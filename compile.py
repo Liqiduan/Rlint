@@ -1,9 +1,9 @@
-import urllib
+import urllib,urllib2
 import sys,os,posixpath 
 
 class Compiler():
-    def __init__(self, server):
-        self.server = server
+    def __init__(self, url):
+        self.url = url
 
     def normpath(self, path):
         p = path.split(os.sep)
@@ -11,15 +11,17 @@ class Compiler():
         return posix_path
     
     def compile(self, filename):
-        base = '/home/liqiduan/'
         filename = self.normpath(filename)
         
-        args = urllib.urlencode({'base':'/home/liqiduan/', 'file':filename})
-        url = self.server + '/compile?' + args
-        r = urllib.urlopen(url)
-        return r.read()
+        with open(filename, 'rb') as f:
+            s = f.read()
+
+        arg = {'file':s, 'fname':filename}
+        conn = urllib2.urlopen(self.url, data=urllib.urlencode(arg)) 
+
+        return conn.read()
     
-c = Compiler('http://192.168.1.100:5000')
+c = Compiler('http://192.168.1.100:5000/compile')
 print c.compile(str(sys.argv[1]))
 
 
