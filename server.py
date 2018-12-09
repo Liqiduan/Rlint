@@ -54,7 +54,7 @@ def compile():
 
         basepath = os.path.dirname(__file__)
         fname = os.path.split(fname_with_path)[1]
-        upload_path = os.path.join(basepath, "tmp/", fname)
+        upload_path = os.path.join(basepath, "/tmp/Rlint", fname)
 
         with open(upload_path, 'wb') as f:
             f.write(fdata)
