@@ -16,7 +16,7 @@ class Compiler():
         with open(filename, 'rb') as f:
             s = f.read()
 
-        arg = {'file':s, 'fname':filename}
+        arg = {'file':s, 'fname':filename, 'base':'/home/liqiduan'}
         conn = urllib2.urlopen(self.url, data=urllib.urlencode(arg)) 
 
         return conn.read()
